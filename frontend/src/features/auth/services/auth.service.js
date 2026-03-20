@@ -1,5 +1,3 @@
-// src/services/authService.js
-
 import api from "../../../lib/api/axios";
 
 
@@ -25,6 +23,6 @@ export const getme = async () => {
 };
 
 export const logoutUser = async () => {
-  const res = await api.post("/auth/logout");
+  const res = await api.get("/auth/logout");
   return res.data;
 };

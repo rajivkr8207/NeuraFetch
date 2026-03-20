@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Profile from "../features/auth/pages/Profile";
 import Register from "../features/auth/pages/Register";
 import Login from "../features/auth/pages/Login";
+import Dashboard from "../features/home/pages/Home";
 
 
 export default function AppRoutes() {
@@ -24,7 +25,7 @@ export default function AppRoutes() {
       />
 
       {/* Common */}
-      {/* <Route path="/" element={<Home />} /> */}
+      <Route path="/" element={<Dashboard />} />
 
       {/* Protected */}
       <Route

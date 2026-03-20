@@ -16,6 +16,6 @@ authrouter.post("/register", registerUser);
 authrouter.post("/login", loginUser);
 authrouter.get("/profile", verifyJWT, getProfile);
 authrouter.get("/get-me", verifyJWT, get_me);
-authrouter.post("/logout", verifyJWT, logoutUser);
+authrouter.get("/logout", verifyJWT, logoutUser);
 
 export default authrouter;

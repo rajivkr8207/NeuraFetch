@@ -1,25 +1,29 @@
 // src/components/Navbar.jsx
 
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../features/auth/hooks/useauth";
 
 export default function Navbar() {
   const { user, handleLogout } = useAuth();
-  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
+  // const [darkMode, setDarkMode] = useState(false);
+  // const toggleTheme = () => {
+  //   setDarkMode(!darkMode);
+  // };
+  const { handleGetMe } = useAuth()
 
-  // Apply class to HTML
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+    handleGetMe()
+  }, [])
+  // Apply class to HTML
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // }, [darkMode]);
 
   // 🔥 Logout Handler
   const onLogout = async () => {
@@ -79,13 +83,13 @@ export default function Navbar() {
           </>
         )}
 
-        {/* 🌙 Theme Toggle */}
+        {/* 🌙 Theme Toggle
         <button
           onClick={toggleTheme}
           className="ml-2 px-3 py-1 border rounded-lg dark:text-white"
         >
           {darkMode ? "☀️" : "🌙"}
-        </button>
+        </button> */}
       </div>
     </nav>
   );

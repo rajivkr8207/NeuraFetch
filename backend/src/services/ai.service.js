@@ -1,10 +1,10 @@
 // import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 // import config from "../config/config.js";
 
-// const model = new ChatGoogleGenerativeAI({
-//   model: "text-embedding-004",
-//   apiKey: config.GOOGLE_API_KEY
-// });
+const model = new ChatGoogleGenerativeAI({
+  model: "text-embedding-004",
+  apiKey: config.GOOGLE_API_KEY
+});
 
 // export const generateEmbedding = async (text) => {
 //     try {

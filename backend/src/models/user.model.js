@@ -57,7 +57,6 @@ userSchema.methods.generateAccessToken = function () {
         {
             id: this._id,
             email: this.email,
-            username: this.username
         },
         config.JWT_SECRET,
         {

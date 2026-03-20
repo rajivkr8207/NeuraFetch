@@ -55,15 +55,11 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid credentials");
   }
 
-  const token = user.generateAccessToken();
+  const token = await user.generateAccessToken();
   res.cookie('token', token)
-  const loggedInUser = await User.findById(user._id);
+  const loggedInUser = await User.findById(user._id).select('-fullName -username -createdAt -updatedAt -__v');
   return res
     .status(200)
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: false // production me true karna
-    })
     .json(
       new ApiResponse(200, { user: loggedInUser, token }, "Login successful")
     );

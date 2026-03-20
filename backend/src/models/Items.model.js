@@ -14,7 +14,6 @@ const savedItemSchema = new mongoose.Schema(
       required: true
     },
 
-    // Common fields
     title: {
       type: String,
       trim: true
@@ -43,10 +42,9 @@ const savedItemSchema = new mongoose.Schema(
     },
 
     source: {
-      type: String // extension, manual, api, etc.
+      type: String 
     },
 
-    // 🔥 Metadata (Flexible Structure)
     metadata: {
       pageUrl: String,
       pageTitle: String,
@@ -56,10 +54,9 @@ const savedItemSchema = new mongoose.Schema(
       thumbnail: String
     },
 
-    // 🔥 AI / Future Ready
     aiData: {
       summary: String,
-      embeddings: [Number], // vector DB ke liye
+      embeddings: [Number], 
       keywords: [String]
     }
   },

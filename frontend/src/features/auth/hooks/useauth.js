@@ -1,10 +1,10 @@
 // src/hooks/useAuth.js
 
 import { useDispatch, useSelector } from "react-redux";
-import { getMe, loginUser, logoutUser, profileUser, registerUser } from "../services/auth.service";
+import { getme, loginUser, logoutUser, profileUser, registerUser } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
-import { setIsLogin } from "../auth.slice";
-
+import { setIsLoading, setUser } from "../auth.slice";
+import {toast} from 'react-toastify'
 const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -13,59 +13,69 @@ const useAuth = () => {
     );
 
     const handleRegister = async (data) => {
-        dispatch(setIsLogin(true))
+        dispatch(setIsLoading(true))
         try {
             const res = await registerUser(data);
-            console.log(res);
+            toast.success(res.message)
             navigate('/login')
         } catch (error) {
             console.error(error);
         } finally {
-            dispatch(setIsLogin(false))
+            dispatch(setIsLoading(false))
         }
     };
 
     const handleLogin = async (data) => {
-        dispatch(setIsLogin(true))
-
+        dispatch(setIsLoading(true))
         try {
             const res = await loginUser(data)
-            console.log(res);
+            toast.success(res.message)
+            dispatch(setUser(res.data.user))
+            navigate('/')
         } catch (error) {
             console.error(error);
         } finally {
-            dispatch(setIsLogin(false))
+            dispatch(setIsLoading(false))
         }
     };
 
     const handleFetchProfile = async () => {
-        dispatch(setIsLogin(true))
+        dispatch(setIsLoading(true))
         try {
             const res = await profileUser()
-            console.log(res);
             return res
         } catch (error) {
             console.error(error);
         } finally {
-            dispatch(setIsLogin(false))
+            dispatch(setIsLoading(false))
         }
     };
 
 
     const handleGetMe = async () => {
-        const res = await getMe()
-        return res;
-    };
-
-    const handleLogout = async () => {
-        dispatch(setIsLogin(true))
+        dispatch(setIsLoading(true))
         try {
-            const res = await logoutUser()
-            return res;
+            const res = await getme()
+            dispatch(setUser(res.data))
         } catch (error) {
             console.error(error);
         } finally {
-            dispatch(setIsLogin(false))
+            dispatch(setIsLoading(false))
+        }
+
+    };
+
+    const handleLogout = async () => {
+        dispatch(setIsLoading(true))
+        try {
+            const res = await logoutUser()
+            toast.success(res.message)
+            navigate('/login')
+            dispatch(setUser(null))
+        } catch (error) {
+            console.error(error);
+        } finally {
+            dispatch(setIsLoading(false))
         }
     };
 

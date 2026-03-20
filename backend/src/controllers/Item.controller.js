@@ -4,63 +4,51 @@ import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 
-// export const saveItem = async (req, res) => {
-//     const { collection, limit = 50, page = 1 } = req.query;
-
-//     let filteredItems = items;
-
-//     if (collection) {
-//         filteredItems = filteredItems.filter(item => item.collection === collection);
-//     }
-
-//     const start = (page - 1) * limit;
-//     const end = start + parseInt(limit);
-
-//     res.json({
-//         items: filteredItems.slice(start, end),
-//         total: filteredItems.length,
-//         page: parseInt(page),
-//         limit: parseInt(limit)
-//     });
-
-// }
-
 export const CreateItemData = asyncHandler(async (req, res) => {
-    const { url, type } = req.body;
-
-    if (!url || !type) {
-        throw new ApiError(400, "URL and type are required");
+  const { url, type, pageUrl, pageTitle } = req.body;
+  console.log(req.body);
+  if (!url || !type) {
+    throw new ApiError(400, "URL and type are required");
+  }
+  let metadata = null
+  if (pageTitle && pageUrl) {
+    metadata = {
+      pageTitle,
+      pageUrl
     }
+  }
+  const item = await SavedItem.create({
+    ...req.body,
+    user: req.user.id,
+    metadata
+  });
 
-    const item = await SavedItem.create({
-        ...req.body,
-        user: req.user._id
-    });
-
-    return res
-        .status(201)
-        .json(new ApiResponse(201, item, "Item saved successfully"));
+  return res
+    .status(201)
+    .json(new ApiResponse(201, item, "Item saved successfully"));
 })
 
 
 export const getItems = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10, type, search } = req.query;
+  const { page = 1, limit = 10, type, search, tags } = req.query;
 
   const query = {
-    user: req.user._id
+    user: req.user.id
   };
-
-  // 🔍 filter by type
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { notes: { $regex: search, $options: "i" } }
+    ];
+  }
   if (type) {
     query.type = type;
   }
-
-  // 🔍 search (title + notes)
-  if (search) {
-    query.$text = { $search: search };
+  if (tags) {
+    const tagArray = tags.split(",");
+    query.tags = { $in: tagArray };
   }
-
-  const items = await SavedItem.find(query)
+  const items = await SavedItem.find()
     .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(Number(limit));
@@ -82,7 +70,7 @@ export const getSingleItem = asyncHandler(async (req, res) => {
 
   const item = await SavedItem.findOne({
     _id: id,
-    user: req.user._id
+    user: req.user.id
   });
 
   if (!item) {
@@ -101,7 +89,7 @@ export const deleteItem = asyncHandler(async (req, res) => {
 
   const item = await SavedItem.findOneAndDelete({
     _id: id,
-    user: req.user._id
+    user: req.user.id
   });
 
   if (!item) {
