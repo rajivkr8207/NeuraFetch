@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Knowledge Base Saver",
+  "description": "Save articles, tweets, videos and more to your knowledge base",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://localhost:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+   "background": {
+    "service_worker": "background.js"
+  }
+}
