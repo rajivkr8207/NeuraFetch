@@ -28,28 +28,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   connectToBackground();
 });
-
 window.switchTab = function (tab) {
-  // Update tab buttons
   document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
   document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
 
-  // Update sections
   document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
   document.getElementById(`${tab}Section`).classList.add('active');
 
-  // Update badge
   document.getElementById('modeBadge').textContent = tab === 'page' ? '📄 Page Mode' : '🖼️ Image Mode';
 
-  // If switching to page mode, cancel image mode
   if (tab === 'page' && isImageModeActive) {
     cancelImageMode();
   }
 };
 
-// ==================== PAGE DETECTION ====================
 function detectPageType(url) {
   if (url.includes('youtube.com/watch') || url.includes('youtu.be')) return 'video';
+  if (url.includes('youtube.com/shorts') || url.includes('youtu.be')) return 'video';
   else if (url.includes('twitter.com') || url.includes('x.com')) return 'tweet';
   else if (url.includes('medium.com') || url.includes('substack.com')) return 'article';
   else if (url.match(/\.(pdf)$/i)) return 'pdf';
@@ -300,3 +295,4 @@ function hideMessages() {
   document.getElementById('successMessage').style.display = 'none';
   document.getElementById('errorMessage').style.display = 'none';
 }
+

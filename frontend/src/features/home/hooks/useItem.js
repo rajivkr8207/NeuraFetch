@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { deleteItem, getItems } from "../services/item.services";
-import { addItems, removeItems, setLoading } from "../item.slice";
+import { addItems, setLoading } from "../item.slice";
 
 const useItem = () => {
     const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const useItem = () => {
     const handleDelete = async (id) => {
         try {
             await deleteItem(id);
-            dispatch(removeItems(id))
+            fetchItems()
         } catch (err) {
             console.error(err);
         }

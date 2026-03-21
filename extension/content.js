@@ -4,26 +4,6 @@ let currentImage = null;
 let saveButton = null;
 let isImageModeActive = false;
 
-// ==================== INITIALIZE ====================
-function initImageSaver() {
-  console.log("✅ Content script loaded");
-  
-  // Create hover save button
-  saveButton = document.createElement('button');
-  saveButton.className = 'kb-save-image-btn';
-  saveButton.innerHTML = '📥';
-  saveButton.title = 'Save this image';
-  document.body.appendChild(saveButton);
-  
-  // Hover listeners for button
-  document.addEventListener('mouseover', handleMouseOver);
-  document.addEventListener('mouseout', handleMouseOut);
-  
-  // Hover button click
-  saveButton.addEventListener('click', saveImageFromHover);
-}
-
-// ==================== HOVER BUTTON FEATURE ====================
 function handleMouseOver(e) {
   const target = e.target;
   
@@ -246,11 +226,4 @@ function showToast(message, type = 'info') {
   setTimeout(() => {
     toast.remove();
   }, 2000);
-}
-
-// ==================== START ====================
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initImageSaver);
-} else {
-  initImageSaver();
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <style>
@@ -8,28 +9,28 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       width: 380px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-    
+
     .container {
       padding: 16px;
     }
-    
+
     .header {
       margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .header h2 {
       color: #2563eb;
       font-size: 18px;
     }
-    
+
     .mode-badge {
       background: #e5e7eb;
       padding: 4px 8px;
@@ -37,7 +38,7 @@
       font-size: 11px;
       color: #4b5563;
     }
-    
+
     .tab-bar {
       display: flex;
       gap: 8px;
@@ -45,7 +46,7 @@
       border-bottom: 1px solid #e5e7eb;
       padding-bottom: 8px;
     }
-    
+
     .tab {
       flex: 1;
       padding: 8px;
@@ -56,48 +57,48 @@
       cursor: pointer;
       color: #6b7280;
     }
-    
+
     .tab.active {
       background: #2563eb;
       color: white;
     }
-    
+
     .tab i {
       margin-right: 4px;
     }
-    
+
     .section {
       display: none;
     }
-    
+
     .section.active {
       display: block;
     }
-    
+
     .preview-card {
       background: #f3f4f6;
       border-radius: 8px;
       padding: 12px;
       margin-bottom: 16px;
     }
-    
+
     .preview-title {
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 4px;
       color: #1f2937;
     }
-    
+
     .preview-url {
       font-size: 12px;
       color: #6b7280;
       word-break: break-all;
     }
-    
+
     .form-group {
       margin-bottom: 12px;
     }
-    
+
     .form-group label {
       display: block;
       font-size: 12px;
@@ -105,7 +106,7 @@
       color: #374151;
       margin-bottom: 4px;
     }
-    
+
     .form-group input,
     .form-group select,
     .form-group textarea {
@@ -115,16 +116,16 @@
       border-radius: 4px;
       font-size: 12px;
     }
-    
+
     .form-group textarea {
       height: 60px;
       resize: vertical;
     }
-    
+
     .btn {
       width: 100%;
       padding: 10px;
-      background: #2563eb;
+      background: #7216f4;
       color: white;
       border: none;
       border-radius: 4px;
@@ -134,34 +135,34 @@
       transition: background 0.2s;
       margin-bottom: 8px;
     }
-    
+
     .btn:hover {
-      background: #1d4ed8;
+      background: #6206cb;
     }
-    
+
     .btn:disabled {
       background: #9ca3af;
       cursor: not-allowed;
     }
-    
+
     .btn-secondary {
       background: #8b5cf6;
     }
-    
+
     .btn-secondary:hover {
       background: #7c3aed;
     }
-    
+
     .btn-outline {
       background: white;
       color: #2563eb;
       border: 1px solid #2563eb;
     }
-    
+
     .btn-outline:hover {
       background: #eff6ff;
     }
-    
+
     .success-message {
       margin-top: 12px;
       padding: 8px;
@@ -172,7 +173,7 @@
       text-align: center;
       display: none;
     }
-    
+
     .error-message {
       margin-top: 12px;
       padding: 8px;
@@ -183,7 +184,7 @@
       text-align: center;
       display: none;
     }
-    
+
     .tags-input {
       display: flex;
       flex-wrap: wrap;
@@ -192,7 +193,7 @@
       border-radius: 4px;
       padding: 4px;
     }
-    
+
     .tag {
       background: #e5e7eb;
       padding: 2px 8px;
@@ -202,17 +203,17 @@
       align-items: center;
       gap: 4px;
     }
-    
+
     .tag-remove {
       cursor: pointer;
       color: #6b7280;
       font-size: 14px;
     }
-    
+
     .tag-remove:hover {
       color: #ef4444;
     }
-    
+
     /* Image preview */
     .image-preview {
       background: #f9fafb;
@@ -222,18 +223,18 @@
       border: 2px dashed #d1d5db;
       display: none;
     }
-    
+
     .image-preview.show {
       display: block;
     }
-    
+
     .image-preview img {
       max-width: 100%;
       max-height: 120px;
       border-radius: 4px;
       margin-bottom: 8px;
     }
-    
+
     .image-preview .url {
       font-size: 11px;
       color: #6b7280;
@@ -242,7 +243,7 @@
       padding: 4px;
       border-radius: 4px;
     }
-    
+
     /* Image mode indicator */
     .image-mode-indicator {
       background: #dbeafe;
@@ -254,11 +255,11 @@
       gap: 8px;
       border-left: 4px solid #2563eb;
     }
-    
+
     .image-mode-indicator.show {
       display: flex;
     }
-    
+
     .pulse {
       width: 10px;
       height: 10px;
@@ -266,13 +267,24 @@
       border-radius: 50%;
       animation: pulse 1.5s infinite;
     }
-    
+
     @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.5); opacity: 0.5; }
-      100% { transform: scale(1); opacity: 1; }
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
-    
+
     .image-stats {
       display: flex;
       gap: 8px;
@@ -280,7 +292,7 @@
       color: #6b7280;
       margin-top: 4px;
     }
-    
+
     .divider {
       height: 1px;
       background: #e5e7eb;
@@ -288,42 +300,36 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="header">
-      <h2>📚 Knowledge Base</h2>
+      <h2>📚 
+NeuraFetch</h2>
       <span class="mode-badge" id="modeBadge">Page Mode</span>
     </div>
-    
-    <!-- Tab Bar -->
-    <div class="tab-bar">
-      <button class="tab active" id="tabPage" onclick="switchTab('page')">
-        📄 Save Page
-      </button>
-      <button class="tab" id="tabImage" onclick="switchTab('image')">
-        🖼️ Save Image
-      </button>
-    </div>
-    
-    <!-- PAGE SECTION (Default) -->
+
+
+
     <div class="section active" id="pageSection">
       <div class="preview-card">
         <div class="preview-title" id="pageTitle">Loading...</div>
         <div class="preview-url" id="pageUrl">Fetching page info...</div>
       </div>
-      
+
       <div class="form-group">
         <label>📝 Notes (optional)</label>
         <textarea id="notes" placeholder="Add your notes..."></textarea>
       </div>
-      
+
       <div class="form-group">
         <label>🏷️ Tags</label>
         <div class="tags-input" id="tagsContainer">
-          <input type="text" id="tagInput" placeholder="Add tag and press Enter" style="border: none; outline: none; flex: 1;">
+          <input type="text" id="tagInput" placeholder="Add tag and press Enter"
+            style="border: none; outline: none; flex: 1;">
         </div>
       </div>
-      
+
       <div class="form-group">
         <label>📁 Collection</label>
         <select id="collection">
@@ -333,13 +339,19 @@
           <option value="ideas">💡 Ideas</option>
         </select>
       </div>
-      
+
       <button class="btn" id="saveBtn">💾 Save Page</button>
     </div>
-    
-    <!-- IMAGE SECTION -->
+
     <div class="section" id="imageSection">
-      
+      <!-- Image Mode Button -->
+      <button class="btn" id="startImageModeBtn" style="background: #8b5cf6; margin-bottom: 8px;">
+        🖼️ Start Image Save Mode
+      </button>
+      <button class="btn btn-outline" id="cancelImageModeBtn" style="display: none;">
+        ❌ Cancel Image Mode
+      </button>
+
       <!-- Image Mode Indicator -->
       <div class="image-mode-indicator" id="imageModeIndicator">
         <div class="pulse"></div>
@@ -348,61 +360,43 @@
           <span style="font-size: 11px;">Click any image on the page to save</span>
         </div>
       </div>
-      
+
       <!-- Image Preview -->
       <div class="image-preview" id="imagePreview">
-        <img id="previewImg" src="" alt="Preview">
+        <img id="previewImg" src="">
         <div class="url" id="previewUrl"></div>
         <div class="image-stats" id="imageStats"></div>
-      </div>
-      
-      <div class="form-group">
-        <label>🖼️ Image Alt Text</label>
-        <input type="text" id="imageAlt" placeholder="Alt text" readonly>
-      </div>
-      
-      <div class="form-group">
-        <label>📝 Notes (optional)</label>
-        <textarea id="imageNotes" placeholder="Add notes about this image..."></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label>🏷️ Tags</label>
-        <div class="tags-input" id="imageTagsContainer">
-          <input type="text" id="imageTagInput" placeholder="Add tag and press Enter" style="border: none; outline: none; flex: 1;">
+        <div class="form-group" style="margin-top: 8px;">
+          <label>📝 Alt Text</label>
+          <input type="text" id="imageAlt" placeholder="Image description">
+        </div>
+        <div class="form-group">
+          <label>📝 Notes</label>
+          <textarea id="imageNotes" placeholder="Add notes..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>🏷️ Tags</label>
+          <div class="tags-input" id="imageTagsContainer">
+            <input type="text" id="imageTagInput" placeholder="Add tag and press Enter"
+              style="border: none; outline: none; flex: 1;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>📁 Collection</label>
+          <select id="imageCollection">
+            <option value="inbox">📥 Inbox</option>
+            <option value="images">🖼️ Images</option>
+            <option value="screenshots">📸 Screenshots</option>
+          </select>
         </div>
       </div>
-      
-      <div class="form-group">
-        <label>📁 Collection</label>
-        <select id="imageCollection">
-          <option value="inbox">📥 Inbox</option>
-          <option value="reading">📖 Reading List</option>
-          <option value="research">🔬 Research</option>
-          <option value="ideas">💡 Ideas</option>
-        </select>
-      </div>
-      
-      <button class="btn btn-secondary" id="startImageModeBtn">
-        🎯 Start Image Save Mode
-      </button>
-      
-      <button class="btn btn-outline" id="cancelImageModeBtn" style="display: none;">
-        ❌ Cancel Mode
-      </button>
-      
-      <div class="divider"></div>
-      
-      <p style="font-size: 11px; color: #6b7280; text-align: center;">
-        💡 Tip: You can also hover over any image and click the blue button
-      </p>
     </div>
-    
-    <!-- Success/Error Messages -->
+
     <div class="success-message" id="successMessage">✓ Saved successfully!</div>
     <div class="error-message" id="errorMessage">✗ Error saving. Please try again.</div>
   </div>
-  
+
   <script src="popup.js"></script>
 </body>
+
 </html>

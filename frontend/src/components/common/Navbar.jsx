@@ -1,30 +1,17 @@
 // src/components/Navbar.jsx
 
 import {  useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../../features/auth/hooks/useauth";
 
 export default function Navbar() {
   const { user, handleLogout } = useAuth();
-  // const [darkMode, setDarkMode] = useState(false);
-  // const toggleTheme = () => {
-  //   setDarkMode(!darkMode);
-  // };
   const { handleGetMe } = useAuth()
 
   useEffect(() => {
     handleGetMe()
   }, [])
-  // Apply class to HTML
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     document.documentElement.classList.add("dark");
-  //   } else {
-  //     document.documentElement.classList.remove("dark");
-  //   }
-  // }, [darkMode]);
 
-  // 🔥 Logout Handler
   const onLogout = async () => {
     await handleLogout();
   };
@@ -32,17 +19,15 @@ export default function Navbar() {
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md px-6 py-4 flex justify-between items-center">
 
-      {/* Logo */}
       <Link to="/" className="text-xl font-bold text-black dark:text-white">
-        AI Extractor
+NeuraFetch
       </Link>
 
-      {/* Links */}
       <div className="flex items-center gap-4">
 
         <Link
           to="/"
-          className="text-gray-700 dark:text-gray-200 hover:text-black"
+          className="text-gray-700 dark:text-gray-200 px-2 py-1 rounded-lg transform duration-300 hover:bg-white/80 hover:text-black"
         >
           Home
         </Link>

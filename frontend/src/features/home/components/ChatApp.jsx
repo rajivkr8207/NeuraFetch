@@ -123,21 +123,21 @@ export default function ChatApp({ setChatbot }) {
         };
     }, []);
     return (
-        <div className="fixed bottom-25 right-20 inset-0  z-50 flex items-end justify-end  sm:justify-end">
+       <div className="fixed inset-0 z-50 flex items-end justify-end">
 
             <div
                 style={{
                     transform: `translate(${position.x}px, ${position.y}px)`,
                 }}
                 className="
-    relative flex flex-col bg-white text-neutral-900
-    w-full h-full 
-    sm:w-[360px] sm:h-[520px] 
-    sm:rounded-2xl sm:shadow-2xl 
-    overflow-hidden border
-    lg:absolute lg:top-0 lg:left-0
-    transition-transform duration-150 ease-out
-  "
+                    relative flex flex-col bg-white text-neutral-900
+                    w-full h-full 
+                    sm:w-[360px] sm:h-[520px] 
+                    sm:rounded-2xl sm:shadow-2xl 
+                    overflow-hidden border
+                    lg:absolute lg:top-0 lg:left-0
+                    transition-transform duration-150 ease-out
+                    "
             >
 
                 {/* Header */}

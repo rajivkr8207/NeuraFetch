@@ -6,7 +6,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 export const CreateItemData = asyncHandler(async (req, res) => {
   const { url, type, pageUrl, pageTitle } = req.body;
-  console.log(req.body);
   if (!url || !type) {
     throw new ApiError(400, "URL and type are required");
   }
