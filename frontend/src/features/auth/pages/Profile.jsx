@@ -24,8 +24,8 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+    <div className="min-h-[85vh]  flex items-center justify-center">
+      <div className="bg-neutral-900 shadow-lg rounded-2xl p-8 w-full max-w-md">
 
         <h2 className="text-2xl font-bold text-center mb-6">
           Your Profile
@@ -40,7 +40,7 @@ export default function Profile() {
 
             {/* Avatar */}
             <div className="flex justify-center">
-              <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl">
+              <div className="w-20 h-20 rounded-full bg-gray-700/30 backdrop-blur-xl text-white flex items-center justify-center text-2xl">
                 {user.username?.charAt(0).toUpperCase()}
               </div>
             </div>

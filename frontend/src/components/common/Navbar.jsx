@@ -6,7 +6,6 @@ import useAuth from "../../features/auth/hooks/useauth";
 
 export default function Navbar() {
   const { user, handleLogout } = useAuth();
-  const navigate = useNavigate();
   // const [darkMode, setDarkMode] = useState(false);
   // const toggleTheme = () => {
   //   setDarkMode(!darkMode);
@@ -28,7 +27,6 @@ export default function Navbar() {
   // 🔥 Logout Handler
   const onLogout = async () => {
     await handleLogout();
-    navigate("/");
   };
 
   return (

@@ -11,7 +11,7 @@ const config = {
     REDIS_PASSWORD: process.env.REDIS_PASSWORD,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     NODE_ENV: process.env.NODE_ENV,
-    // FRONTEND_URL: process.env.FRONTEND_URL,
+    MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
     // FRONTEND_URL: process.env.FRONTEND_URL,
 }
 

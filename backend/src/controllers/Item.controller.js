@@ -48,7 +48,7 @@ export const getItems = asyncHandler(async (req, res) => {
     const tagArray = tags.split(",");
     query.tags = { $in: tagArray };
   }
-  const items = await SavedItem.find()
+  const items = await SavedItem.find(query)
     .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(Number(limit));
