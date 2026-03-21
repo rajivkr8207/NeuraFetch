@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import MessageBubble from "./MessageBubble";
+import socket from "../../../lib/socket/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../item.slice";
 
 export default function ChatApp({ setChatbot }) {
-    const [messages, setMessages] = useState([
-        { role: "ai", content: "Hello! How can I help you today?" },
-    ]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -16,29 +16,39 @@ export default function ChatApp({ setChatbot }) {
     const positionRef = useRef({ x: 0, y: 0 });
     const frameRef = useRef(null);
     const bottomRef = useRef(null);
+    const user = useSelector(state => state.auth.user)
+    const messages = useSelector(state => state.items.messages)
+    const dispatch = useDispatch()
 
-    const sendMessage = async () => {
+    const sendMessage = () => {
         if (!input.trim()) return;
 
-        const userMsg = { role: "user", content: input };
-        setMessages((prev) => [...prev, userMsg]);
-        setInput("");
-        setLoading(true);
+        const userMsg = { role: "user", message: input, userid: user.id };
 
-        // Simulate AI response
-        setTimeout(() => {
-            const aiMsg = {
-                role: "ai",
-                content: "This is a dummy AI response 🤖",
-            };
-            setMessages((prev) => [...prev, aiMsg]);
-            setLoading(false);
-        }, 1000);
+        dispatch(addMessage(userMsg))
+
+        socket.emit("send_message", userMsg);
+
+        setInput("");
     };
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, loading]);
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+            dispatch(addMessage(data))
+
+        });
+
+        socket.on("ai_typing", setLoading);
+
+        return () => {
+            socket.off("receive_message");
+            socket.off("ai_typing");
+        };
+    }, []);
+
 
     const handleMouseDown = (e) => {
         if (window.innerWidth < 1024) return;
@@ -92,11 +102,24 @@ export default function ChatApp({ setChatbot }) {
     }, []);
     useEffect(() => {
         window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("mouseup", handleMouseUp);  
+        window.addEventListener("mouseup", handleMouseUp);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
+        };
+    }, []);
+
+
+    useEffect(() => {
+        socket.connect();
+
+        socket.on("connect", () => {
+            console.log("Connected:", socket.id);
+        });
+
+        return () => {
+            socket.disconnect();
         };
     }, []);
     return (
