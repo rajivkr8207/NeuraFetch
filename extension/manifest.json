@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Knowledge Base Saver",
+  "name": "Ai Knowledge extractor Saver",
   "description": "Save articles, tweets, videos and more to your knowledge base",
   "version": "1.0",
   "permissions": [
