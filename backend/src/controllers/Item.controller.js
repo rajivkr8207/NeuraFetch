@@ -1,11 +1,13 @@
+import { generateTags } from "../helpers/generateTags.js";
+import { GenrateVectorEmbedding } from "../helpers/GenrateVectorEmbedding.js";
 import SavedItem from "../models/Items.model.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
-
+import { embeddingQueue } from '../queues/embedding.queue.js'
 
 export const CreateItemData = asyncHandler(async (req, res) => {
-  const { url, type, pageUrl, pageTitle } = req.body;
+  const { url, type, pageUrl, pageTitle, title, notes } = req.body;
   if (!url || !type) {
     throw new ApiError(400, "URL and type are required");
   }
@@ -16,15 +18,25 @@ export const CreateItemData = asyncHandler(async (req, res) => {
       pageUrl
     }
   }
+  let aitags
+  if (type != 'image') {
+    aitags = await generateTags({ title, url })
+  }
   const item = await SavedItem.create({
     ...req.body,
     user: req.user.id,
-    metadata
+    metadata,
+    tags: aitags
   });
+  let vectorjob
+  if (type != 'image') {
+    vectorjob = await embeddingQueue.add("generate-embedding", { title, description: notes, userid: req.user.id });
 
+    // await GenrateVectorEmbedding({ title, description: notes,userid: req.user.id })
+  }
   return res
     .status(201)
-    .json(new ApiResponse(201, item, "Item saved successfully"));
+    .json(new ApiResponse(201, { item, vectorjob }, "Item saved successfully"));
 })
 
 

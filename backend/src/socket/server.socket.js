@@ -1,5 +1,5 @@
 import { Server } from 'socket.io'
-import { aiAssistantResponse } from '../services/ai.service.js';
+import { aiAssistantResponse } from '../helpers/aiAssistantResponse.js';
 
 
 let io
@@ -18,10 +18,10 @@ export function initSocket(httpServer) {
 
         socket.on("send_message", async (data) => {
             try {
-                const { message, userid} = data;
+                const { message} = data;
                 socket.emit("ai_typing", true);
 
-                const aiResponse = await aiAssistantResponse(message, userid);
+                const aiResponse = await aiAssistantResponse(message);
                 socket.emit("receive_message", {
                     role: "ai",
                     message: aiResponse,

@@ -3,7 +3,7 @@ import { mistarmodel } from "../services/ai.service.js";
 export const generateShortContent = async ({ title, description }) => {
     try {
         const prompt = `
-Create a short, clear summary (2-3 lines max) of the following content.
+Create a short, clear summary (3-4 lines max) of the following content.
 
 Rules:
 - keep it concise

@@ -53,12 +53,6 @@ const savedItemSchema = new mongoose.Schema(
       description: String,
       thumbnail: String
     },
-
-    aiData: {
-      summary: String,
-      embeddings: [Number], 
-      keywords: [String]
-    }
   },
   { timestamps: true }
 );

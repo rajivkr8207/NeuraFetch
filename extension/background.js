@@ -1,56 +1,11 @@
 
 let activePopupPort = null;
 let activeTabId = null;
-
-
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === 'popup-connection') {
-    activePopupPort = port;
-
-    port.onMessage.addListener((message) => {
-
-      if (message.action === 'imageModeStarted') {
-        activeTabId = message.tabId;
-      }
-    });
-
-    port.onDisconnect.addListener(() => {
-
-      if (activeTabId) {
-        chrome.tabs.sendMessage(activeTabId, { action: 'stopImageMode' })
-          .catch(() => { });
-      }
-
-      activePopupPort = null;
-      activeTabId = null;
-    });
-  }
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("📨 From content:", message.action);
-
-  if (message.action === 'imageClicked' && activePopupPort) {
-    activePopupPort.postMessage({
-      action: 'imageClicked',
-      imageData: message.imageData
-    });
-    sendResponse({ received: true });
-  }
-
-  if (message.action === 'saveImage') {
-    saveImageToBackend(message.data)
-      .then(result => sendResponse({ success: true }))
-      .catch(error => sendResponse({ success: false }));
-    return true;
-  }
-
-  return true;
-});
+let API_URL = 'http://localhost:8000'
 
 async function saveImageToBackend(imageData) {
   try {
-    const response = await fetch('http://localhost:8000/api/items/save', {
+    const response = await fetch(`${API_URL}/api/items/save`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(imageData)

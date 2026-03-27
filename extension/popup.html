@@ -11,325 +11,427 @@
     }
 
     body {
-      width: 380px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      width: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #0f0f12 0%, #1a1a1f 100%);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #2a2a2f;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #7216f4;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8b5cf6;
     }
 
     .container {
-      padding: 16px;
+      padding: 20px;
     }
 
+    /* Header Section */
     .header {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .header h2 {
-      color: #2563eb;
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #7216f4, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 18px;
+      box-shadow: 0 4px 12px rgba(114, 22, 244, 0.3);
+    }
+
+    .header h2 {
+      background: linear-gradient(135deg, #fff, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
     }
 
     .mode-badge {
-      background: #e5e7eb;
-      padding: 4px 8px;
-      border-radius: 12px;
+      background: rgba(114, 22, 244, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 4px 12px;
+      border-radius: 20px;
       font-size: 11px;
-      color: #4b5563;
+      font-weight: 500;
+      color: #a78bfa;
+      border: 1px solid rgba(114, 22, 244, 0.3);
     }
 
-    .tab-bar {
+    /* User Profile Section */
+    .user-profile {
+      background: linear-gradient(135deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.9));
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(114, 22, 244, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .user-profile:hover {
+      border-color: rgba(114, 22, 244, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .user-info {
       display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 8px;
+      align-items: center;
+      gap: 12px;
     }
 
-    .tab {
-      flex: 1;
-      padding: 8px;
-      background: none;
-      border: none;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      color: #6b7280;
-    }
-
-    .tab.active {
-      background: #2563eb;
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #7216f4, #8b5cf6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
       color: white;
+      box-shadow: 0 4px 12px rgba(114, 22, 244, 0.4);
     }
 
-    .tab i {
-      margin-right: 4px;
+    .user-details {
+      flex: 1;
     }
 
-    .section {
-      display: none;
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 2px;
     }
 
-    .section.active {
-      display: block;
+    .user-email {
+      font-size: 11px;
+      color: #9ca3af;
     }
 
-    .preview-card {
-      background: #f3f4f6;
+    .logout-btn {
+      background: rgba(239, 68, 68, 0.2);
+      border: none;
+      color: #f87171;
+      padding: 6px 12px;
       border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 16px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .logout-btn:hover {
+      background: rgba(239, 68, 68, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Preview Card */
+    .preview-card {
+      background: linear-gradient(135deg, rgba(40, 40, 45, 0.8), rgba(30, 30, 35, 0.9));
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(114, 22, 244, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .preview-card:hover {
+      border-color: rgba(114, 22, 244, 0.5);
+      transform: translateY(-1px);
     }
 
     .preview-title {
       font-size: 14px;
       font-weight: 600;
-      margin-bottom: 4px;
-      color: #1f2937;
+      margin-bottom: 8px;
+      color: white;
+      line-height: 1.4;
     }
 
     .preview-url {
-      font-size: 12px;
-      color: #6b7280;
+      font-size: 11px;
+      color: #9ca3af;
       word-break: break-all;
+      font-family: monospace;
     }
 
+    /* Form Groups */
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .form-group label {
       display: block;
       font-size: 12px;
       font-weight: 500;
-      color: #374151;
-      margin-bottom: 4px;
+      color: #d1d5db;
+      margin-bottom: 6px;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
+      padding: 10px 12px;
+      background: rgba(50, 50, 55, 0.8);
+      border: 1px solid rgba(114, 22, 244, 0.3);
+      border-radius: 12px;
       font-size: 12px;
+      color: white;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #7216f4;
+      background: rgba(60, 60, 65, 0.9);
+      box-shadow: 0 0 0 3px rgba(114, 22, 244, 0.1);
     }
 
     .form-group textarea {
-      height: 60px;
       resize: vertical;
+      min-height: 70px;
     }
 
+    .form-group select option {
+      background: #1f1f24;
+      color: white;
+    }
+
+    /* Buttons */
     .btn {
       width: 100%;
-      padding: 10px;
-      background: #7216f4;
+      padding: 12px;
+      background: linear-gradient(135deg, #7216f4, #8b5cf6);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 12px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
       margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
-      background: #6206cb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(114, 22, 244, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .btn:disabled {
-      background: #9ca3af;
+      background: #4b5563;
       cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
 
-    .btn-secondary {
-      background: #8b5cf6;
-    }
-
-    .btn-secondary:hover {
-      background: #7c3aed;
-    }
-
-    .btn-outline {
-      background: white;
-      color: #2563eb;
-      border: 1px solid #2563eb;
-    }
-
-    .btn-outline:hover {
-      background: #eff6ff;
+    /* Messages */
+    .success-message,
+    .error-message {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      text-align: center;
+      display: none;
+      animation: slideUp 0.3s ease;
     }
 
     .success-message {
-      margin-top: 12px;
-      padding: 8px;
-      background: #10b981;
-      color: white;
-      border-radius: 4px;
-      font-size: 12px;
-      text-align: center;
-      display: none;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #10b981;
     }
 
     .error-message {
-      margin-top: 12px;
-      padding: 8px;
-      background: #ef4444;
-      color: white;
-      border-radius: 4px;
-      font-size: 12px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #f87171;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Loading State */
+    .loading-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(114, 22, 244, 0.5), transparent);
+      margin: 16px 0;
+    }
+
+    /* Auth Required Section */
+    .auth-required {
       text-align: center;
-      display: none;
+      padding: 32px 20px;
     }
 
-    .tags-input {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      padding: 4px;
-    }
-
-    .tag {
-      background: #e5e7eb;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .tag-remove {
-      cursor: pointer;
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    .tag-remove:hover {
-      color: #ef4444;
-    }
-
-    /* Image preview */
-    .image-preview {
-      background: #f9fafb;
-      border-radius: 8px;
-      padding: 12px;
+    .auth-icon {
+      font-size: 48px;
       margin-bottom: 16px;
-      border: 2px dashed #d1d5db;
-      display: none;
     }
 
-    .image-preview.show {
-      display: block;
-    }
-
-    .image-preview img {
-      max-width: 100%;
-      max-height: 120px;
-      border-radius: 4px;
+    .auth-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
       margin-bottom: 8px;
     }
 
-    .image-preview .url {
-      font-size: 11px;
-      color: #6b7280;
-      word-break: break-all;
-      background: #f3f4f6;
-      padding: 4px;
-      border-radius: 4px;
+    .auth-text {
+      color: #9ca3af;
+      font-size: 12px;
+      margin-bottom: 20px;
     }
 
-    /* Image mode indicator */
-    .image-mode-indicator {
-      background: #dbeafe;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 16px;
+    .auth-btn {
+      background: linear-gradient(135deg, #7216f4, #8b5cf6);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(114, 22, 244, 0.4);
+    }
+
+    /* Hide element */
+    .hidden {
       display: none;
-      align-items: center;
-      gap: 8px;
-      border-left: 4px solid #2563eb;
-    }
-
-    .image-mode-indicator.show {
-      display: flex;
-    }
-
-    .pulse {
-      width: 10px;
-      height: 10px;
-      background: #2563eb;
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.5);
-        opacity: 0.5;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .image-stats {
-      display: flex;
-      gap: 8px;
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-
-    .divider {
-      height: 1px;
-      background: #e5e7eb;
-      margin: 16px 0;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
+    <!-- Header -->
     <div class="header">
-      <h2>📚 
-NeuraFetch</h2>
-      <span class="mode-badge" id="modeBadge">Page Mode</span>
+      <div class="logo-section">
+        <div class="logo-icon">🧠</div>
+        <h2>NeuraFetch</h2>
+      </div>
+      <span class="mode-badge" id="modeBadge">📄 Page Mode</span>
     </div>
 
+    <!-- User Profile Section (Visible only when logged in) -->
+    <div id="userProfileSection" class="user-profile hidden">
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">R</div>
+        <div class="user-details">
+          <div class="user-name" id="userName">Loading...</div>
+          <div class="user-email" id="userEmail">user@example.com</div>
+        </div>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </div>
 
+    <!-- Auth Required Section (Visible when not logged in) -->
+    <div id="authRequiredSection" class="auth-required">
+      <div class="auth-icon">🔐</div>
+      <div class="auth-title">Login Required</div>
+      <div class="auth-text">Please login to save your knowledge</div>
+      <button id="loginBtn" class="auth-btn">Login / Sign Up</button>
+    </div>
 
-    <div class="section active" id="pageSection">
+    <!-- Main Content (Visible when logged in) -->
+    <div id="mainContent" class="hidden">
+      <!-- Preview Card -->
       <div class="preview-card">
         <div class="preview-title" id="pageTitle">Loading...</div>
         <div class="preview-url" id="pageUrl">Fetching page info...</div>
       </div>
 
+      <!-- Notes -->
       <div class="form-group">
-        <label>📝 Notes (optional)</label>
-        <textarea id="notes" placeholder="Add your notes..."></textarea>
+        <label>📝 Notes</label>
+        <textarea id="notes" placeholder="Add your thoughts..."></textarea>
       </div>
 
-      <div class="form-group">
-        <label>🏷️ Tags</label>
-        <div class="tags-input" id="tagsContainer">
-          <input type="text" id="tagInput" placeholder="Add tag and press Enter"
-            style="border: none; outline: none; flex: 1;">
-        </div>
-      </div>
-
+      <!-- Collection -->
       <div class="form-group">
         <label>📁 Collection</label>
         <select id="collection">
@@ -340,60 +442,15 @@ NeuraFetch</h2>
         </select>
       </div>
 
-      <button class="btn" id="saveBtn">💾 Save Page</button>
-    </div>
-
-    <div class="section" id="imageSection">
-      <!-- Image Mode Button -->
-      <button class="btn" id="startImageModeBtn" style="background: #8b5cf6; margin-bottom: 8px;">
-        🖼️ Start Image Save Mode
-      </button>
-      <button class="btn btn-outline" id="cancelImageModeBtn" style="display: none;">
-        ❌ Cancel Image Mode
+      <!-- Save Button -->
+      <button class="btn" id="saveBtn">
+        <span id="saveBtnText">💾 Save Page</span>
       </button>
 
-      <!-- Image Mode Indicator -->
-      <div class="image-mode-indicator" id="imageModeIndicator">
-        <div class="pulse"></div>
-        <div>
-          <strong>Image Save Mode Active</strong><br>
-          <span style="font-size: 11px;">Click any image on the page to save</span>
-        </div>
-      </div>
-
-      <!-- Image Preview -->
-      <div class="image-preview" id="imagePreview">
-        <img id="previewImg" src="">
-        <div class="url" id="previewUrl"></div>
-        <div class="image-stats" id="imageStats"></div>
-        <div class="form-group" style="margin-top: 8px;">
-          <label>📝 Alt Text</label>
-          <input type="text" id="imageAlt" placeholder="Image description">
-        </div>
-        <div class="form-group">
-          <label>📝 Notes</label>
-          <textarea id="imageNotes" placeholder="Add notes..."></textarea>
-        </div>
-        <div class="form-group">
-          <label>🏷️ Tags</label>
-          <div class="tags-input" id="imageTagsContainer">
-            <input type="text" id="imageTagInput" placeholder="Add tag and press Enter"
-              style="border: none; outline: none; flex: 1;">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>📁 Collection</label>
-          <select id="imageCollection">
-            <option value="inbox">📥 Inbox</option>
-            <option value="images">🖼️ Images</option>
-            <option value="screenshots">📸 Screenshots</option>
-          </select>
-        </div>
-      </div>
+      <!-- Messages -->
+      <div class="success-message" id="successMessage">✓ Saved successfully!</div>
+      <div class="error-message" id="errorMessage">✗ Error saving. Please try again.</div>
     </div>
-
-    <div class="success-message" id="successMessage">✓ Saved successfully!</div>
-    <div class="error-message" id="errorMessage">✗ Error saving. Please try again.</div>
   </div>
 
   <script src="popup.js"></script>

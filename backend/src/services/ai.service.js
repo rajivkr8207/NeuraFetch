@@ -1,5 +1,9 @@
 import config from "../config/config.js";
 import { ChatMistralAI } from "@langchain/mistralai";
+import { Mistral } from "@mistralai/mistralai";
+import { Pinecone } from '@pinecone-database/pinecone';
+
+
 
 
 export const mistralEmbedding = new Mistral({
@@ -14,4 +18,4 @@ const pc = new Pinecone({
     apiKey: config.PINE_CODE
 });
 
-export const index = pc.index("candybhai");
+export const index = pc.index("extractai");
