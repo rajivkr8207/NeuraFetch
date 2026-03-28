@@ -1,34 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "Ai Knowledge extractor Saver",
+  "name": "NeuraFetch Ai extractor",
   "description": "Save articles, tweets, videos and more to your knowledge base",
   "version": "1.0",
-  "permissions": [
-    "activeTab",
-    "storage",
-    "scripting",
-    "contextMenus"
-  ],
+  "permissions": ["activeTab", "storage", "scripting", "contextMenus"],
   "host_permissions": [
     "<all_urls>",
-    "http://localhost:8000/*"
+    "http://localhost:8000/*",
+    "https://neurafetch.onrender.com/*"
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/Neura.png",
+      "48": "icons/Neura.png",
+      "128": "icons/Neura.png"
+
+    }
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ],
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
       "css": ["styles.css"],
       "run_at": "document_end"
     }
   ],
-   "background": {
+  "background": {
     "service_worker": "background.js"
   }
 }

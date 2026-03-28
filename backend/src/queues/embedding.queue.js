@@ -1,8 +1,11 @@
 // queues/embedding.queue.js
 import { Queue } from "bullmq";
-import IORedis from "ioredis";
+import { redisConnection } from "../config/redis.js";
 
-const connection = new IORedis();
 export const embeddingQueue = new Queue("embedding-queue", {
-    connection,
+    connection: redisConnection,
+});
+
+export const embeddingDeleteQueue = new Queue("embedding-delete-queue", {
+    connection: redisConnection,
 });

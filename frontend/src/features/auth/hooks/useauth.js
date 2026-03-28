@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getme, loginUser, logoutUser, profileUser, registerUser } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { setIsLoading, setUser } from "../auth.slice";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const { user, isLoading, isError, } = useSelector(
         (state) => state.auth
     );
-
     const handleRegister = async (data) => {
         dispatch(setIsLoading(true))
         try {
@@ -31,6 +30,13 @@ const useAuth = () => {
             const res = await loginUser(data)
             toast.success(res.message)
             dispatch(setUser(res.data.user))
+
+            const resdata = {
+                isLoggedIn: true,
+                user: res.data.user,
+                token: res.data.token
+            }
+            console.log(resdata);
             navigate('/')
         } catch (error) {
             console.error(error);
@@ -43,6 +49,7 @@ const useAuth = () => {
         dispatch(setIsLoading(true))
         try {
             const res = await profileUser()
+            localStorage.getItem("auth")
             return res
         } catch (error) {
             console.error(error);
@@ -56,7 +63,7 @@ const useAuth = () => {
         dispatch(setIsLoading(true))
         try {
             const res = await getme()
-            dispatch(setUser(res.data))
+            dispatch(setUser(res.data.user))
         } catch (error) {
             console.error(error);
         } finally {
@@ -70,6 +77,7 @@ const useAuth = () => {
         try {
             const res = await logoutUser()
             toast.success(res.message)
+            localStorage.removeItem("auth")
             navigate('/login')
             dispatch(setUser(null))
         } catch (error) {

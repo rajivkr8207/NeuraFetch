@@ -1,17 +1,14 @@
-// src/services/api.js
 
 import axios from "axios";
-
+const API_URl = import.meta.env.VITE_BACKEND_URL
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
-    withCredentials: true // 🔥 important for cookies
+    baseURL: `${API_URl}/api`,
+    withCredentials: true
 });
 
-// 🔥 Response interceptor (optional but powerful)
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        // central error handling
         const message =
             error.response?.data?.message || "Something went wrong";
 

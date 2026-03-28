@@ -1,8 +1,9 @@
 import { io } from "socket.io-client";
+const API_URl = import.meta.env.VITE_BACKEND_URL
 
-const socket = io("http://localhost:8000", {
+const socket = io(`${API_URl}`, {
   withCredentials: true,
-  autoConnect: false, // control manually
+  autoConnect: false,
 });
 
 export default socket;

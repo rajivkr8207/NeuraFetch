@@ -21,7 +21,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     title: tab.title,
     type: detectPageType(tab.url)
   };
-
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "TEXT_SELECTED") {
+      chrome.storage.local.set({
+        selectedText: message.payload
+      });
+    }
+  });
   document.getElementById('saveBtn').addEventListener('click', savePageItem);
 
   connectToBackground();
@@ -116,15 +122,19 @@ function hideMessages() {
 
 // popup.js
 
-// Check login status from storage
 async function checkLoginStatus() {
   try {
-    const result = await chrome.storage.local.get(['user', 'isLoggedIn']);
-    isLoggedIn = result.isLoggedIn || false;
-    
-    if (isLoggedIn && result.user) {
-      showLoggedInUI(result.user);
-      loadPageInfo();
+    const res = await fetch(`${API_URL}/api/auth/get-me`);
+    const authdata = await res.json()
+    const auth = authdata.data
+    console.log(auth);
+
+    const isLoggedIn = authdata?.success || false;
+
+    if (isLoggedIn && auth?.user) {
+      console.log(isLoggedIn, auth);
+      showLoggedInUI(auth.user);
+      // loadPageInfo();
     } else {
       showLoggedOutUI();
     }
@@ -139,21 +149,20 @@ function showLoggedInUI(user) {
   document.getElementById('authRequiredSection').classList.add('hidden');
   document.getElementById('mainContent').classList.remove('hidden');
   document.getElementById('userProfileSection').classList.remove('hidden');
-  
+
   // Set user info
   const avatar = document.getElementById('userAvatar');
   const userName = document.getElementById('userName');
   const userEmail = document.getElementById('userEmail');
-  
-  const displayName = user.fullName || user.username || user.email?.split('@')[0] || 'User';
+
+  const displayName = user.email?.split('@')[0] || 'User';
   const initial = displayName.charAt(0).toUpperCase();
-  
+
   avatar.textContent = initial;
   userName.textContent = displayName;
   userEmail.textContent = user.email || `${displayName.toLowerCase()}@example.com`;
 }
 
-// Show UI for logged out user
 function showLoggedOutUI() {
   document.getElementById('authRequiredSection').classList.remove('hidden');
   document.getElementById('mainContent').classList.add('hidden');
@@ -161,14 +170,6 @@ function showLoggedOutUI() {
 }
 
 
-// Logout function
-async function logout() {
-  await chrome.storage.local.remove(['user', 'userToken', 'isLoggedIn']);
-  isLoggedIn = false;
-  showLoggedOutUI();
-}
-
-// Show error message
 function showError(message) {
   const errorMsg = document.getElementById('errorMessage');
   errorMsg.textContent = message || '✗ Error saving. Please try again.';
@@ -182,25 +183,27 @@ function hideMessages() {
   document.getElementById('successMessage').style.display = 'none';
   document.getElementById('errorMessage').style.display = 'none';
 }
+async function loadSelectedText() {
+  const result = await chrome.storage.local.get("selectedText");
+  if (result.selectedText) {
+    document.getElementById("notes").value = result.selectedText;
+  }
+}
 
-// Initialize popup
+function clearSelectedText() {
+  chrome.storage.local.remove("selectedText");
+}
+
+
 document.addEventListener('DOMContentLoaded', async () => {
-  // Check login status first
   await checkLoginStatus();
-  
+  await loadSelectedText(); //
+
   if (isLoggedIn) {
-    // Setup save button
     document.getElementById('saveBtn').addEventListener('click', saveItem);
   }
-  
-  // Setup logout button
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await logout();
-  });
-  
-  // Setup login button
+
   document.getElementById('loginBtn').addEventListener('click', () => {
-    // Open login page in new tab
     chrome.tabs.create({ url: `${FRONTEND_URL}/login` });
     window.close();
   });

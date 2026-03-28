@@ -57,7 +57,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   const token = await user.generateAccessToken();
   res.cookie('token', token)
-  const loggedInUser = await User.findById(user._id).select('-fullName -username -createdAt -updatedAt -__v');
+  const loggedInUser = await User.findById(user._id).select('-_id -username -createdAt -updatedAt -__v');
   return res
     .status(200)
     .json(
@@ -83,10 +83,9 @@ export const get_me = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(400, "User not found");
   }
-
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "fetched successfully"));
+    .json(new ApiResponse(200, { user }, "fetched successfully"));
 });
 
 

@@ -1,15 +1,15 @@
 import { Worker } from "bullmq";
-import  connection  from "../config/redis.js";
+import { redisConnection } from "../config/redis.js";
 import { GenrateVectorEmbedding } from "../helpers/GenrateVectorEmbedding.js";
 
 const worker = new Worker(
   "embedding-queue",
   async (job) => {
-    const { title, description, userid } = job.data;
-
-    await GenrateVectorEmbedding({ title, description, userid });
+    const { title, description, userid, docId } = job.data;
+    console.log(job.id);
+    await GenrateVectorEmbedding({ title, description, userid, docId });
   },
-  { connection }
+  { connection: redisConnection }
 );
 
 worker.on("completed", (job) => {

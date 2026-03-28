@@ -13,7 +13,10 @@ const savedItemSchema = new mongoose.Schema(
       enum: ["webpage", "image", "article", "video", "pdf"],
       required: true
     },
-
+    documentId: {
+      type: String,
+      unique: true,
+    },
     title: {
       type: String,
       trim: true

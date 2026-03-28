@@ -29,14 +29,14 @@ async function saveImageToBackend(imageData) {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    id: 'save-image-to-ai-extractor',
-    title: 'save-image-to-ai-extractor',
+    id: 'NeuraFetch-ai-extractor',
+    title: 'NeuraFetch-save-image',
     contexts: ['image']
   });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === 'save-image-to-ai-extractor') {
+  if (info.menuItemId === 'NeuraFetch-ai-extractor') {
     const imageData = {
       url: info.srcUrl,
       pageUrl: info.pageUrl,
@@ -47,5 +47,13 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     };
 
     saveImageToBackend(imageData);
+  }
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "TEXT_SELECTED") {
+    chrome.storage.local.set({
+      selectedText: message.payload
+    });
   }
 });

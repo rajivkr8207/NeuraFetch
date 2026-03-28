@@ -1,10 +1,11 @@
 import { generateTags } from "../helpers/generateTags.js";
-import { GenrateVectorEmbedding } from "../helpers/GenrateVectorEmbedding.js";
 import SavedItem from "../models/Items.model.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { embeddingQueue } from '../queues/embedding.queue.js'
+import { embeddingDeleteQueue, embeddingQueue } from '../queues/embedding.queue.js'
+import crypto from 'crypto'
+import { deleteEmbeddingByDocument } from "../helpers/deleteEmbeddingByDocument.js";
 
 export const CreateItemData = asyncHandler(async (req, res) => {
   const { url, type, pageUrl, pageTitle, title, notes } = req.body;
@@ -22,17 +23,19 @@ export const CreateItemData = asyncHandler(async (req, res) => {
   if (type != 'image') {
     aitags = await generateTags({ title, url })
   }
+  const docId = crypto.randomUUID();
+
   const item = await SavedItem.create({
     ...req.body,
     user: req.user.id,
     metadata,
-    tags: aitags
+    tags: aitags,
+    documentId: docId
   });
   let vectorjob
-  if (type != 'image') {
-    vectorjob = await embeddingQueue.add("generate-embedding", { title, description: notes, userid: req.user.id });
 
-    // await GenrateVectorEmbedding({ title, description: notes,userid: req.user.id })
+  if (type != 'image') {
+    vectorjob = await embeddingQueue.add("generate-embedding", { title, description: notes, userid: req.user.id, docId });
   }
   return res
     .status(201)
@@ -97,37 +100,20 @@ export const getSingleItem = asyncHandler(async (req, res) => {
 
 export const deleteItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  const item = await SavedItem.findOneAndDelete({
-    _id: id,
+  const userid = req.user.id
+  const item = await SavedItem.findOne({
+    documentId: id,
     user: req.user.id
   });
 
   if (!item) {
     throw new ApiError(404, "Item not found or already deleted");
   }
-
+  if (item.type != 'image') {
+    await deleteEmbeddingByDocument({ documentId: id, userId: userid })
+  }
+  await SavedItem.findByIdAndDelete(item._id)
   return res
     .status(200)
     .json(new ApiResponse(200, null, "Item deleted successfully"));
 });
-
-// const { title, url, type } = req.body;
-// const item = await ItemsModel.create({
-//     title,
-//     url,
-//     type
-// });
-// const embedding = await generateEmbedding(item.content);
-// item.embedding = embedding;
-
-// await item.save();
-//  await itemQueue.add("itemEmbeded", {
-//     itemId: item._id
-// });
-// return res.status(201).json({
-//     message: "working",
-//     title,
-//     url ,
-//     type
-// })
