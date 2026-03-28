@@ -4,8 +4,8 @@ let pageTags = [];
 let imageTags = [];
 let currentImageData = null;
 let port = null;
-let API_URL = 'http://localhost:8000'
-let FRONTEND_URL = 'http://localhost:5173'
+let API_URL = 'https://neurafetch.onrender.com'
+let FRONTEND_URL = 'https://neurafetch.onrender.com'
 
 let isLoggedIn = false;
 

@@ -3,9 +3,6 @@ import config from './src/config/config.js'
 import ConnectDB from './src/config/database.js'
 import http from 'http'
 import { initSocket } from './src/socket/server.socket.js';
-// import { itemQueue } from './src/queues/itemQueue.js';
-// import './src/workers/itemsworkers.js'
-// await itemQueue.add("test", { hello: "world" });
 
 
 const httpserver = http.createServer(app);

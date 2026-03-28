@@ -3,39 +3,42 @@ import Profile from "../features/auth/pages/Profile";
 import Register from "../features/auth/pages/Register";
 import Login from "../features/auth/pages/Login";
 import Dashboard from "../features/home/pages/Home";
+import Protected from "../features/auth/components/Protected";
 
 
 export default function AppRoutes() {
   return (
     <Routes>
 
-      {/* Public */}
       <Route
         path="/login"
         element={
-            <Login />
+          <Login />
         }
       />
 
       <Route
         path="/register"
         element={
-            <Register />
+          <Register />
         }
       />
 
-      {/* Common */}
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={
+        <Protected>
+          <Dashboard />
+        </Protected>
+      } />
 
-      {/* Protected */}
       <Route
         path="/profile"
         element={
+          <Protected>
             <Profile />
+          </Protected>
         }
       />
 
-      {/* 404 */}
       <Route path="*" element={<div>Page Not Found</div>} />
 
     </Routes>

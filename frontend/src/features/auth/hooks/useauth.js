@@ -5,6 +5,7 @@ import { getme, loginUser, logoutUser, profileUser, registerUser } from "../serv
 import { useNavigate } from "react-router-dom";
 import { setIsLoading, setUser } from "../auth.slice";
 import { toast } from 'react-toastify'
+import { getErrorMessage } from "../../../utils/getErrorMessage";
 const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -18,7 +19,7 @@ const useAuth = () => {
             toast.success(res.message)
             navigate('/login')
         } catch (error) {
-            console.error(error);
+            toast.error(getErrorMessage(error))
         } finally {
             dispatch(setIsLoading(false))
         }
@@ -30,16 +31,9 @@ const useAuth = () => {
             const res = await loginUser(data)
             toast.success(res.message)
             dispatch(setUser(res.data.user))
-
-            const resdata = {
-                isLoggedIn: true,
-                user: res.data.user,
-                token: res.data.token
-            }
-            console.log(resdata);
             navigate('/')
         } catch (error) {
-            console.error(error);
+            toast.error(getErrorMessage(error))
         } finally {
             dispatch(setIsLoading(false))
         }
@@ -49,10 +43,9 @@ const useAuth = () => {
         dispatch(setIsLoading(true))
         try {
             const res = await profileUser()
-            localStorage.getItem("auth")
             return res
         } catch (error) {
-            console.error(error);
+            toast.error(getErrorMessage(error))
         } finally {
             dispatch(setIsLoading(false))
         }
@@ -77,7 +70,6 @@ const useAuth = () => {
         try {
             const res = await logoutUser()
             toast.success(res.message)
-            localStorage.removeItem("auth")
             navigate('/login')
             dispatch(setUser(null))
         } catch (error) {

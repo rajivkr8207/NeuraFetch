@@ -9,7 +9,7 @@ export const GenrateEmbeddingResponse = async (msg) => {
         topK: 2,
         includeMetadata: true
     })
-   
+
     const match = result.matches[0]
     if (!match || match.score < 0.65) {
         return "No relevant data found";

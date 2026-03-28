@@ -60,7 +60,7 @@ export default function ChatApp({ setChatbot }) {
         dragRef.current.offsetX = e.clientX - rect.left;
         dragRef.current.offsetY = e.clientY - rect.top;
 
-        document.body.style.userSelect = "none"; // 🔥 fix selection
+        document.body.style.userSelect = "none"; 
     };
 
     const handleMouseMove = (e) => {

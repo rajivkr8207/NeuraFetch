@@ -3,9 +3,8 @@ import useAuth from "../hooks/useauth";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
-  const {handleFetchProfile,handleLogout, isError, isLoading} = useAuth()
+  const { handleFetchProfile, handleLogout, isError, isLoading } = useAuth()
 
-  // 🔥 Fetch profile
   const fetchProfile = async () => {
     const res = await handleFetchProfile()
     setUser(res.data)
