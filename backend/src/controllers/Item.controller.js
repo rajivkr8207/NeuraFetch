@@ -109,9 +109,9 @@ export const deleteItem = asyncHandler(async (req, res) => {
   if (!item) {
     throw new ApiError(404, "Item not found or already deleted");
   }
-  if (item.type != 'image') {
-    await deleteEmbeddingByDocument({ documentId: id, userId: userid })
-  }
+  // if (item.type != 'image') {
+  //   await deleteEmbeddingByDocument({ documentId: id, userId: userid })
+  // }
   await SavedItem.findByIdAndDelete(item._id)
   return res
     .status(200)

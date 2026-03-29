@@ -1,11 +1,10 @@
-// ==================== GLOBAL VARIABLES ====================
 let currentPageData = {};
 let pageTags = [];
 let imageTags = [];
 let currentImageData = null;
 let port = null;
-let API_URL = 'https://neurafetch.onrender.com'
-let FRONTEND_URL = 'https://neurafetch.onrender.com'
+let API_URL = 'https://neurafetch.onrender.com';
+let FRONTEND_URL = 'https://neurafetch.onrender.com';
 
 let isLoggedIn = false;
 
@@ -46,8 +45,9 @@ function detectPageType(url) {
 // ==================== PAGE SAVE ====================
 async function savePageItem() {
   const saveBtn = document.getElementById('saveBtn');
-
+  const saveBtnText = document.getElementById('saveBtnText');
   saveBtn.disabled = true;
+  saveBtnText.innerHTML = `<span class="loading-spinner"></span> Saving...`;
   hideMessages();
 
   const itemData = {
@@ -69,13 +69,14 @@ async function savePageItem() {
       showSuccess('✓ Page saved successfully!');
       setTimeout(() => window.close(), 1500);
     } else {
-      showError();
+      showError("Failed to save");
     }
   } catch (error) {
     console.error('Error:', error);
-    showError();
+    showError("An error occurred while saving the page");
   } finally {
     saveBtn.disabled = false;
+    saveBtnText.innerHTML = "💾 Save Page";
   }
 }
 
@@ -107,40 +108,51 @@ function showSuccess(message) {
   setTimeout(hideMessages, 2000);
 }
 
-function showError() {
-  document.getElementById('errorMessage').style.display = 'block';
-  setTimeout(hideMessages, 2000);
-}
+// function showError() {
+//   document.getElementById('errorMessage').style.display = 'block';
+//   setTimeout(hideMessages, 2000);
+// }
 
 function hideMessages() {
   document.getElementById('successMessage').style.display = 'none';
   document.getElementById('errorMessage').style.display = 'none';
 }
 
+function showLoading() {
+  document.getElementById('loadingScreen').classList.remove('hidden');
+  document.getElementById('authRequiredSection').classList.add('hidden');
+  document.getElementById('mainContent').classList.add('hidden');
+  document.getElementById('userProfileSection').classList.add('hidden');
+}
 
+function hideLoading() {
+  document.getElementById('loadingScreen').classList.add('hidden');
+}
 
 
 // popup.js
 
 async function checkLoginStatus() {
+  showLoading();
   try {
     const res = await fetch(`${API_URL}/api/auth/get-me`);
     const authdata = await res.json()
     const auth = authdata.data
-    console.log(auth);
 
     const isLoggedIn = authdata?.success || false;
 
     if (isLoggedIn && auth?.user) {
-      console.log(isLoggedIn, auth);
+      hideLoading();
       showLoggedInUI(auth.user);
-      // loadPageInfo();
     } else {
+      hideLoading();
       showLoggedOutUI();
     }
   } catch (error) {
     console.error('Error checking login status:', error);
+    hideLoading();
     showLoggedOutUI();
+    showError("Session expired, please login");
   }
 }
 
@@ -187,6 +199,7 @@ async function loadSelectedText() {
   const result = await chrome.storage.local.get("selectedText");
   if (result.selectedText) {
     document.getElementById("notes").value = result.selectedText;
+    chrome.storage.local.remove("selectedText");
   }
 }
 

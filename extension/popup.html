@@ -306,6 +306,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -324,7 +325,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .divider {
@@ -400,13 +403,17 @@
       </div>
     </div>
 
-    <div id="authRequiredSection" class="auth-required">
+    <div id="authRequiredSection" class="auth-required hidden">
       <div class="auth-icon">🔐</div>
       <div class="auth-title">Login Required</div>
       <div class="auth-text">Please login to save your knowledge</div>
       <button id="loginBtn" class="auth-btn">Login / Sign Up</button>
     </div>
-
+    <div id="loadingScreen" class="auth-required">
+      <div class="auth-icon">⏳</div>
+      <div class="auth-title">Checking...</div>
+      <div class="auth-text">Please wait</div>
+    </div>
     <div id="mainContent" class="hidden">
       <div class="preview-card">
         <div class="preview-title" id="pageTitle">Loading...</div>

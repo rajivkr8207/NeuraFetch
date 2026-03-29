@@ -21,7 +21,10 @@ export const getme = async () => {
   const res = await api.get("/auth/get-me");
   return res.data;
 };
-
+export const ChangePasswordUser = async (data) => {
+  const res = await api.put("/auth/change-password", data);
+  return res.data;
+};
 export const logoutUser = async () => {
   const res = await api.get("/auth/logout");
   return res.data;

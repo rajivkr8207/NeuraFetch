@@ -4,6 +4,7 @@ import Register from "../features/auth/pages/Register";
 import Login from "../features/auth/pages/Login";
 import Dashboard from "../features/home/pages/Home";
 import Protected from "../features/auth/components/Protected";
+import ChangePassword from "../features/auth/pages/ChangePassword";
 
 
 export default function AppRoutes() {
@@ -35,6 +36,14 @@ export default function AppRoutes() {
         element={
           <Protected>
             <Profile />
+          </Protected>
+        }
+      />
+      <Route
+        path="/change/password"
+        element={
+          <Protected>
+            <ChangePassword />
           </Protected>
         }
       />

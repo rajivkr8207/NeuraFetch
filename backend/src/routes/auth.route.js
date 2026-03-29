@@ -6,7 +6,8 @@ import {
   loginUser,
   getProfile,
   logoutUser,
-  get_me
+  get_me,
+  ChangePasssword
 } from "../controllers/auth.controller.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 
@@ -17,5 +18,6 @@ authrouter.post("/login", loginUser);
 authrouter.get("/profile", verifyJWT, getProfile);
 authrouter.get("/get-me", verifyJWT, get_me);
 authrouter.get("/logout", verifyJWT, logoutUser);
+authrouter.put("/change-password", verifyJWT, ChangePasssword);
 
 export default authrouter;

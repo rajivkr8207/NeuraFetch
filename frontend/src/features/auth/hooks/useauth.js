@@ -1,7 +1,7 @@
 // src/hooks/useAuth.js
 
 import { useDispatch, useSelector } from "react-redux";
-import { getme, loginUser, logoutUser, profileUser, registerUser } from "../services/auth.service";
+import { ChangePasswordUser, getme, loginUser, logoutUser, profileUser, registerUser } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { setIsLoading, setUser } from "../auth.slice";
 import { toast } from 'react-toastify'
@@ -79,7 +79,18 @@ const useAuth = () => {
         }
     };
 
-
+    const handleChangePassword = async (data) => {
+        dispatch(setIsLoading(true))
+        try {
+            const res = await ChangePasswordUser(data)
+            toast.success(res.message)
+            navigate('/profile')
+        } catch (error) {
+            console.error(error);
+        } finally {
+            dispatch(setIsLoading(false))
+        }
+    };
     return {
         user,
         isLoading,
@@ -88,6 +99,7 @@ const useAuth = () => {
         handleLogin,
         handleLogout,
         handleGetMe,
+        handleChangePassword,
         handleFetchProfile
     };
 };

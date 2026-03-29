@@ -89,6 +89,27 @@ export const get_me = asyncHandler(async (req, res) => {
 });
 
 
+export const ChangePasssword = asyncHandler(async (req, res) => {
+  const userid = req.user.id;
+  const { oldPassword, newPassword } = req.body;
+  const existuser = await User.findById(userid).select('+password');
+  if (!existuser) {
+    throw new ApiError(400, "User not found");
+  }
+  const isPasswordValid = await existuser.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid credentials");
+  }
+  existuser.password = newPassword;
+  await existuser.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Password changed successfully"));
+});
+
+
 export const logoutUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
