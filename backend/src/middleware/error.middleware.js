@@ -15,9 +15,3 @@ export const errorHandler = (err, req, res, next) => {
     }
   });
 };
-
-export const notFound = (req, res, next) => {
-  const error = new Error('Not Found');
-  error.status = 404;
-  next(error);
-};

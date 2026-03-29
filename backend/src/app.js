@@ -4,7 +4,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import ItemRouter from './routes/item.routes.js'
 import authrouter from './routes/auth.route.js'
-import { errorHandler, notFound } from './middleware/error.middleware.js'
+import { errorHandler } from './middleware/error.middleware.js'
+
 const app = express()
 
 app.use(express.json())
@@ -17,19 +18,19 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('./public/frontend'))
 
-
 app.get('/health', (req, res) => {
   res.send('Server is healthy');
-})
+});
 
 
-app.use('/api/auth', authrouter)
-app.use('/api/items', ItemRouter)
+app.use('/api/auth', authrouter);
+app.use('/api/items', ItemRouter);
 
 
-app.use(errorHandler)
-app.use(notFound)
+app.use(errorHandler);
+
 export default app;
