@@ -5,6 +5,7 @@ import Login from "../features/auth/pages/Login";
 import Dashboard from "../features/home/pages/Home";
 import Protected from "../features/auth/components/Protected";
 import ChangePassword from "../features/auth/pages/ChangePassword";
+import ExtensionGuide from "../features/home/pages/ExtensionGuide";
 
 
 export default function AppRoutes() {
@@ -49,6 +50,8 @@ export default function AppRoutes() {
       />
 
       <Route path="*" element={<div>Page Not Found</div>} />
+
+      <Route path="/extension-guide" element={<ExtensionGuide />} />
 
     </Routes>
   );

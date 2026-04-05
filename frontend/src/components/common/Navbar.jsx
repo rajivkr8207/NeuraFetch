@@ -44,6 +44,18 @@ export default function Navbar() {
         Home
       </Link>
 
+      <Link 
+        to="/extension-guide" 
+        onClick={() => setOpen(false)} 
+        className={`${
+          mobile 
+            ? "block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            : "text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white px-3 py-2 rounded-lg transition-colors"
+        }`}
+      >
+        Extension Guide
+      </Link>
+
       {!user ? (
         <>
           <Link 

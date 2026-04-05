@@ -56,7 +56,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   }
 
   const token = await user.generateAccessToken();
-  res.cookie('token', token)
+  res.cookie('neurafetch_token', token)
   const loggedInUser = await User.findById(user._id).select('-_id -username -createdAt -updatedAt -__v');
   return res
     .status(200)
@@ -113,7 +113,7 @@ export const ChangePasssword = asyncHandler(async (req, res) => {
 export const logoutUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
-    .clearCookie("token", {
+    .clearCookie("neurafetch_token", {
       httpOnly: true,
       secure: false
     })

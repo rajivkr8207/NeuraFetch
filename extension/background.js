@@ -2,6 +2,7 @@
 let activePopupPort = null;
 let activeTabId = null;
 let API_URL = 'https://neurafetch.onrender.com';
+// let API_URL = 'http://localhost:8000';
 
 async function saveImageToBackend(imageData) {
   try {
